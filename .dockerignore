@@ -35,6 +35,7 @@
 
 # Absolute Files
 data/*
+.ruff_cache/
 
 # Absolute Files
 LICENSE
