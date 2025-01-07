@@ -1,39 +1,39 @@
 services:
-
+# Continer 1: FirstAPI
   server:
     build:
-      context: .
+      context: .  # Dockerfile for the server should be in this directory
     ports:
-      - 8001:8001
+      - 8001:8001  # Maps port 8001 on the host to 8001 in the container
     networks:
       - closed-network
     depends_on:
       postgres_db:
-        condition: service_healthy
+        condition: service_healthy  # Waits until postgres_db passes healthcheck
 
+# Continer 2: Postgres
   postgres_db:
-    image: postgres
+    image: postgres  # Uses the official PostgreSQL image
     restart: always
     user: postgres
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data  # Persistent storage for PostgreSQL data
     environment:
-      - POSTGRES_DB=example
-      - POSTGRES_PASSWORD=mysecretpassword
-      # - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
-    expose:
-      - 5432
+      - POSTGRES_DB=example  # Initializes the database
+      - POSTGRES_PASSWORD=mysecretpassword  # Sets the default password
     networks:
       - closed-network
     healthcheck:
-      test: [ "CMD", "pg_isready" ]
+      test: [ "CMD", "pg_isready" ]  # Checks database readiness
       interval: 10s
       timeout: 5s
       retries: 5
 
-volumes:
-  db-data:
-
 networks:
   closed-network:
     driver: bridge
+
+volumes:
+  db-data:
+    driver: local
+ 

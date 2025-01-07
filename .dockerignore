@@ -34,6 +34,9 @@
 **/values.dev.yaml
 
 # Absolute Files
+data/*
+
+# Absolute Files
 LICENSE
 README.md
 requirements-dev.txt
