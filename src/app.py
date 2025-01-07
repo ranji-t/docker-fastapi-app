@@ -1,6 +1,7 @@
 # Third Party Imports
 from fastapi import FastAPI
 from sqlalchemy import create_engine
+from sqlalchemy.engine.base import Engine
 
 # App Creation
 app = FastAPI()
@@ -29,24 +30,22 @@ def read_item(item_id: int, q: str = None):
     Returns:
         dict: A dictionary containing the item ID and the query parameter.
     """
+    # Get engine
+    engine = get_engine()
+    # Retuen item ID and query parameter
     return {"item_id": item_id, "q": q}
 
 
-@app.get("/status/{item_id}")
-def get_status(item_id: int, q: str = None):
+def get_engine() -> Engine:
     """
-    Endpoint to get the status of an item by its ID and an optional query parameter.
-    Connects to a PostgreSQL database using SQLAlchemy.
-
-    Args:
-        item_id (int): The ID of the item.
-        q (str, optional): An optional query parameter. Defaults to None.
+    Function to create a SQLAlchemy engine.
 
     Returns:
-        dict: A dictionary containing the item ID and the query parameter.
+        sqlalchemy.engine.base.Engine: A SQLAlchemy engine.
     """
     # Create a database engine using SQLAlchemy and psycopg2
     engine = create_engine(
         "postgresql+psycopg2://postgres:mysecretpassword@postgres_db/example"
     )
-    return {"item_id": item_id, "q": q}
+    # Return Eingine
+    return engine
