@@ -1,0 +1,39 @@
+services:
+
+  server:
+    build:
+      context: .
+    ports:
+      - 8001:8001
+    networks:
+      - closed-network
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+
+  postgres_db:
+    image: postgres
+    restart: always
+    user: postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=example
+      - POSTGRES_PASSWORD=mysecretpassword
+      # - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+    expose:
+      - 5432
+    networks:
+      - closed-network
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db-data:
+
+network:
+  closed-network:
+    driver: bridge
