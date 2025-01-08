@@ -1,7 +1,3 @@
-Here’s the consolidated `README.md` file that incorporates all the provided files and details:
-
----
-
 # FastAPI with SQLModel Example
 
 This project demonstrates a simple FastAPI application integrated with SQLModel for database interactions, containerized using Docker. It provides a REST API to create, read, and update items in a PostgreSQL database.
@@ -15,6 +11,13 @@ This project demonstrates a simple FastAPI application integrated with SQLModel 
 - **PostgreSQL**: A robust relational database.
 - **Docker**: Containerized deployment with Docker Compose.
 - **Endpoints**: Basic CRUD operations for managing items.
+
+---
+
+## Technology Stack
+
+- **Python**: 3.12.7
+- **PostgreSQL**: 15 (via Docker)
 
 ---
 
@@ -197,7 +200,3 @@ Feel free to fork the repository and submit pull requests. Ensure all new featur
 ## License
 
 This project is open-source and available under the MIT License.
-
----
-
-Let me know if you need further refinements! 🚀
