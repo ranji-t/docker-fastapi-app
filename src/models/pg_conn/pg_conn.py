@@ -11,7 +11,7 @@ def get_engine() -> Engine:
     """
     # Create a database engine using SQLAlchemy and psycopg2
     engine = create_engine(
-        "postgresql+psycopg2://postgres:mysecretpassword@postgres_db::5432/example"
+        "postgresql+psycopg2://postgres:mysecretpassword@postgres_db:5432/example"
     )
     # Return Eingine
     return engine
