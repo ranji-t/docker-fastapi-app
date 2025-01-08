@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from sqlmodel import Session, select
 
 # Internal Imports
-from models.pg_conn import get_engine_test  # , get_engine
+from models.pg_conn import get_engine
 from models.sql_init import create_table
 from models.tbl_model import Items_Tbl
 
@@ -21,7 +21,7 @@ async def lifespan(app: FastAPI):
         None
     """
     # Create Engine
-    resources["engine"] = get_engine_test()
+    resources["engine"] = get_engine()
     # Create Table
     create_table(resources["engine"])
     # Triggered when the application stops
@@ -40,7 +40,7 @@ app = FastAPI(
 
 
 @app.get("/")
-def read_root():
+async def read_root():
     """
     Root endpoint that returns a welcome message.
 
@@ -51,7 +51,7 @@ def read_root():
 
 
 @app.get("/items/{item_id}")
-def read_item(item_id: int):
+async def read_item(item_id: int):
     """
     Endpoint to read an item by its ID and an optional query parameter.
 
@@ -74,7 +74,7 @@ def read_item(item_id: int):
 
 
 @app.post("/items/")
-def create_or_update_item(item: Items_Tbl):
+async def create_or_update_item(item: Items_Tbl):
     """
     Endpoint to create a new item or update an existing item.
 
@@ -102,4 +102,4 @@ def create_or_update_item(item: Items_Tbl):
         session.commit()
         session.refresh(item)
 
-    return item
+        return item
