@@ -14,9 +14,9 @@ services:
 
 # Continer 2: Postgres
   postgres_db:
-    image: postgres  # Uses the official PostgreSQL image
-    restart: always
-    user: postgres
+    image: postgres:17.2-alpine3.21  # Uses the official PostgreSQL image
+    restart: on-failure:2
+    # user: postgres
     container_name: pg_db
     volumes:
       - db-data:/var/lib/postgresql/data  # Persistent storage for PostgreSQL data
